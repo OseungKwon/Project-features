@@ -1,8 +1,7 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import uuid from "react-uuid";
+import { useSelector } from "react-redux";
 
-import { Stack, Button, Divider, Paper } from "@mui/material";
+import { Divider, Paper } from "@mui/material";
 
 import Comment from "./Comment";
 import Markdown from "../component/Markdown";

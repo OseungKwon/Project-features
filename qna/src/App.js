@@ -1,6 +1,5 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
-import Comment from "./comment/Comment";
 import Qna from "./comment/Qna";
 
 // 수정할 사항

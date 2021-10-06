@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+// import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import commentReducer from "./comment";
 import qnaReducer from "./qna";

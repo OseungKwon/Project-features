@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Stack, Button, Divider, Paper } from "@mui/material";
+import { Stack, Button, Paper } from "@mui/material";
 import { check_kor, Item, ProfileIcon } from "../component/CommentTool";
 const UserInfo = () => {
   const { writer } = useSelector((state) => state.qna);

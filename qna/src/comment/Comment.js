@@ -7,7 +7,7 @@ import ReplyComment from "./ReplyComment";
 
 // dot icon
 //import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { Stack, Button, Divider, Paper } from "@mui/material";
+import { Stack, Button, Divider } from "@mui/material";
 
 import { Box } from "@mui/system";
 
