@@ -11,7 +11,7 @@ export const commentSlice = createSlice({
     addComment(state, action) {
       const { content, writer, postId, responseTo, commentId, created_at } =
         action.payload;
-      state = {
+      state.push({
         content,
         writer,
         postId,
@@ -19,7 +19,7 @@ export const commentSlice = createSlice({
         commentId,
         created_at,
         exist: true, // 대댓글 있는 댓글 삭제 문제 때문에 임시로 넣어둠
-      };
+      });
     },
     editComment(state, action) {
       // action의 payload에는 삭제될 댓글의 아이디가 담겨있음
