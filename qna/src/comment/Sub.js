@@ -6,7 +6,12 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
+import { toggleLike } from "../redux/qna";
+import { useSelector, useDispatch } from "react-redux";
+
+
 const Sub = () => {
+  const dispatch = useDispatch()
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -27,6 +32,7 @@ const Sub = () => {
         <Stack
           onClick={() => {
             setLike(!like);
+            dispatch(toggleLike);
           }}
         >
           {like ? (
