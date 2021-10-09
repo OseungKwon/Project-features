@@ -10,7 +10,7 @@ import { toggleLike } from "../redux/qna";
 import { useSelector, useDispatch } from "react-redux";
 
 
-const Sub = () => {
+const Sub = ({user}) => {
   const dispatch = useDispatch()
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,14 +26,16 @@ const Sub = () => {
 
   const [copyed, setCopyed] = useState(false);
 
+  const onClickLike = () => {
+    setLike(!like)
+    dispatch(toggleLike(user))
+  }
+
   return (
     <Stack>
       <Paper sx={{ p: 3, mr: 3, mb: 1.5, height: "1.2rem", width: "1.2rem" }}>
         <Stack
-          onClick={() => {
-            setLike(!like);
-            dispatch(toggleLike);
-          }}
+          onClick={ onClickLike}
         >
           {like ? (
             <FavoriteIcon

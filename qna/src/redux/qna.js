@@ -9,14 +9,22 @@ const initialState = {
   image: "",
   is_open: "",
   updated_at: "2010년 12월 2일",
-  view_count: "45"
+  view_count: "45",
+  likes: []
 };
 export const commentSlice = createSlice({
   name: "qna",
   initialState,
   reducers: {
-    addQna(state, action) {}
+    addQna(state, action) { },
+    toggleLike(state, action) {
+      if (state.likes.find(like => like === action.payload)) {
+        state.likes = state.likes.filter((like) => like !== action.payload);
+      } else {
+        state.likes.push(action.payload)
+      }
+    }
   }
 });
-export const { addQna } = commentSlice.actions;
+export const { addQna,toggleLike } = commentSlice.actions;
 export default commentSlice.reducer;
