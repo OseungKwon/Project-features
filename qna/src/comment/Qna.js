@@ -60,7 +60,7 @@ const Qna = ({ user }) => {
               initialValue={qna.content}
               plugins={[
                 colorSyntax,
-                [codeSyntaxHighlight, { highlighter: Prism }]
+                [codeSyntaxHighlight, { highlighter: Prism }],
               ]}
             />
           </>
