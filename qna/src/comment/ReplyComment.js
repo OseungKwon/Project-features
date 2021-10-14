@@ -5,7 +5,6 @@ import uuid from "react-uuid";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addComment, editComment, removeComment } from "../redux/comment";
-import Markdown from "../component/Markdown";
 import { Editor, Viewer } from "@toast-ui/react-editor";
 
 import {
