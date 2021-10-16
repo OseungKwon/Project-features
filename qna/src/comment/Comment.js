@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import uuid from "react-uuid";
 
@@ -13,15 +13,13 @@ import { Box } from "@mui/system";
 
 // markdown, toast editor
 import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
-
-import Markdown from "../component/Markdown";
+import { Editor, Viewer } from "@toast-ui/react-editor";
 
 import {
   check_kor,
   timeForToday,
   Item,
-  ProfileIcon,
+  ProfileIcon
 } from "../component/CommentTool";
 
 const Comment = ({ user }) => {
@@ -51,7 +49,7 @@ const Comment = ({ user }) => {
       postId: "123123",
       responseTo: "root",
       commentId: uuid(),
-      created_at: `${date}`,
+      created_at: `${date}`
     };
     dispatch(addComment(data));
   };
@@ -117,7 +115,7 @@ const Comment = ({ user }) => {
             sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
             // exist는 초기값으로 true를 가지며, removeComment를 통해 false로 변경된다.
           >
-            <Markdown comment={comment} />
+            <Viewer initialValue={comment.content} />
           </Box>
 
           {/* comment 수정 */}

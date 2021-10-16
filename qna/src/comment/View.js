@@ -1,11 +1,14 @@
 import { Editor } from "@toast-ui/react-editor";
 import { Viewer } from "@toast-ui/react-editor";
-import React from "react";
+import React, { useState } from "react";
 
 const View = () => {
+  const [content, setContent] = useState("a");
   return (
     <div>
-      <Viewer />
+      <div>
+        <Viewer initialValue={content} />
+      </div>
     </div>
   );
 };
