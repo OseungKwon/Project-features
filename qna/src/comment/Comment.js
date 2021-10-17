@@ -28,6 +28,7 @@ const Comment = ({ user }) => {
   const comments = useSelector((state) => state.comment);
   const [display, setDisplay] = useState(false);
   const editorRef = useRef();
+  const viewerRef = useRef();
   const date = new Date(); // 작성 시간
 
   // open editor to edit comment
@@ -39,6 +40,7 @@ const Comment = ({ user }) => {
     // 마크다운 변환
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
+
     setDisplay(!display);
 
     // 데이터 저장
@@ -60,7 +62,7 @@ const Comment = ({ user }) => {
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
     console.log(getContent);
-
+    viewerRef.current.getInstance().setMarkdown(getContent);
     let data = { commentId: commentId, content: getContent };
     dispatch(editComment(data));
   };
@@ -115,7 +117,7 @@ const Comment = ({ user }) => {
             sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
             // exist는 초기값으로 true를 가지며, removeComment를 통해 false로 변경된다.
           >
-            <Viewer initialValue={comment.content} />
+            <Viewer ref={viewerRef} />
           </Box>
 
           {/* comment 수정 */}

@@ -130,7 +130,7 @@ const ReplyComment = ({ responseTo, user }) => {
               )}
               {/* 대댓글 컴포넌트 */}
               <ReplyComment responseTo={comment.commentId} user={user} />
-              <Divider variant="middle" />{" "}
+              <Divider variant="middle" />
             </Box>
           ))}
 
