@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useState } from "react";
 import Qna from "./comment/Qna";
+import View from "./comment/View";
 
 // 수정할 사항
 /*
@@ -19,6 +20,7 @@ const App = () => {
   return (
     <div style={{ backgroundColor: "#F5F5F5" }}>
       {/* mock user selector */}
+      <View />
       <div>{user}</div>
       <div>
         <Button onClick={changeUser} value="jamong">

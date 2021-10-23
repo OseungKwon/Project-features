@@ -5,8 +5,7 @@ import uuid from "react-uuid";
 
 import { useSelector, useDispatch } from "react-redux";
 import { addComment, editComment, removeComment } from "../redux/comment";
-import Markdown from "../component/Markdown";
-import { Editor } from "@toast-ui/react-editor";
+import { Editor, Viewer } from "@toast-ui/react-editor";
 
 import {
   check_kor,
@@ -98,7 +97,7 @@ const ReplyComment = ({ responseTo, user }) => {
                 key={index}
                 sx={{ padding: "0px 20px", color: comment.exist ?? "grey" }}
               >
-                <Markdown comment={comment} />
+                <Viewer comment={comment} />
               </Box>
               {/* comment 수정 */}
               {user === comment.writer && (
@@ -131,7 +130,7 @@ const ReplyComment = ({ responseTo, user }) => {
               )}
               {/* 대댓글 컴포넌트 */}
               <ReplyComment responseTo={comment.commentId} user={user} />
-              <Divider variant="middle" />{" "}
+              <Divider variant="middle" />
             </Box>
           ))}
 

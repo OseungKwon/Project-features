@@ -25,7 +25,7 @@ const Qna = ({ user }) => {
   console.log(qna);
   return (
     <div style={{ margin: "5rem", display: "flex" }}>
-      <Sub user={user} />
+      {user && <Sub user={user} />}
       <Paper sx={{ p: 5, flex: 4 }}>
         <Button onClick={() => setEdit(!edit)}>수정</Button>
         {edit ? (
