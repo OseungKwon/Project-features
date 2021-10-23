@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Divider, Paper, Button } from "@mui/material";
+import { Divider, Paper, Button,Chip,TextField, Autocomplete } from "@mui/material";
 import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
 import Prism from "prismjs";
 import "prismjs/themes/prism.css";
@@ -51,7 +51,7 @@ const Qna = ({ user }) => {
         ) : (
           <>
             <form>
-              <input value={"hi"} />
+              <input value={qna.title} />
             </form>
             <Editor
               usageStatistics={false}
