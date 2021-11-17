@@ -142,7 +142,7 @@ const Comment = ({ user }) => {
           )}
 
           {/* 대댓글 컴포넌트 */}
-          <ReplyComment responseTo={comment.commentId} user={user} />
+          {/* <ReplyComment responseTo={comment.commentId} user={user} /> */}
 
           <Divider variant="middle" />
         </Box>
