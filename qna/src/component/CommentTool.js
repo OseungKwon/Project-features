@@ -1,5 +1,4 @@
 import { styled } from "@mui/material/styles";
-import { Avatar } from "@mui/material";
 import { Box } from "@mui/system";
 
 // 프로필 아이콘 글자 한글일때 구분
@@ -38,11 +37,5 @@ export const Item = styled(Box)(({ theme }) => ({
   textAlign: "center",
   color: "#737373",
   fontSize: "1rem",
-  lineHeight: "1rem",
-}));
-
-export const ProfileIcon = styled(Avatar)(() => ({
-  backgroundColor: "orangered",
-  width: "2rem",
-  height: "2rem",
+  lineHeight: "1rem"
 }));

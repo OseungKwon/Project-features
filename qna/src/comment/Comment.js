@@ -7,7 +7,7 @@ import ReplyComment from "./ReplyComment";
 
 // dot icon
 //import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { Stack, Button, Divider } from "@mui/material";
+import { Stack, Button, Divider, Avatar } from "@mui/material";
 
 import { Box } from "@mui/system";
 
@@ -17,12 +17,7 @@ import { Editor } from "@toast-ui/react-editor";
 
 import Markdown from "../component/Markdown";
 
-import {
-  check_kor,
-  timeForToday,
-  Item,
-  ProfileIcon,
-} from "../component/CommentTool";
+import { check_kor, timeForToday, Item } from "../component/CommentTool";
 
 const Comment = ({ user }) => {
   const [local, setLocal] = useState([]);
@@ -51,7 +46,7 @@ const Comment = ({ user }) => {
       postId: "123123",
       responseTo: "root",
       commentId: uuid(),
-      created_at: `${date}`,
+      created_at: `${date}`
     };
     dispatch(addComment(data));
   };
@@ -101,11 +96,7 @@ const Comment = ({ user }) => {
         <Box sx={{ m: 2 }} key={comment.commentId}>
           {/* writer 정보, 작성 시간 */}
           <Stack direction="row" spacing={2}>
-            <ProfileIcon>
-              {check_kor.test(comment.writer)
-                ? comment.writer.slice(0, 1)
-                : comment.writer.slice(0, 2)}
-            </ProfileIcon>
+            <Avatar></Avatar>
             <Item>{comment.writer}</Item>
 
             <Item>{timeForToday(comment.created_at)}</Item>

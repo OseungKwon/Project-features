@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Stack, Button, Divider } from "@mui/material";
+import { Stack, Button, Divider, Avatar } from "@mui/material";
 import { Box } from "@mui/system";
 import uuid from "react-uuid";
 
@@ -8,12 +8,7 @@ import { addComment, editComment, removeComment } from "../redux/comment";
 import Markdown from "../component/Markdown";
 import { Editor } from "@toast-ui/react-editor";
 
-import {
-  check_kor,
-  timeForToday,
-  Item,
-  ProfileIcon
-} from "../component/CommentTool";
+import { check_kor, timeForToday, Item } from "../component/CommentTool";
 
 const ReplyComment = ({ responseTo, user }) => {
   const [local, setLocal] = useState([]);
@@ -84,11 +79,7 @@ const ReplyComment = ({ responseTo, user }) => {
             <Box sx={{ m: 2 }} key={comment.commentId}>
               {/* writer 정보, 작성 시간 */}
               <Stack direction="row" spacing={2}>
-                <ProfileIcon>
-                  {check_kor.test(comment.writer)
-                    ? comment.writer.slice(0, 1)
-                    : comment.writer.slice(0, 2)}
-                </ProfileIcon>
+                <Avatar></Avatar>
                 <Item>{comment.writer}</Item>
 
                 <Item>{timeForToday(comment.created_at)}</Item>
