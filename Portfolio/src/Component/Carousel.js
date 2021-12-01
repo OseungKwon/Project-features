@@ -6,9 +6,11 @@ import img3 from "../Img/img3.jpg";
 import { list } from "./CircleLinkedList";
 
 const Gallery = styled.div`
+  position: relative;
+  right: 10rem;
+  height: 40rem;
+  width: 100rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
   > div {
     width: 25rem;
     height: 15rem;
@@ -19,6 +21,7 @@ const Main = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
   > img {
     height: 100%;
     object-fit: cover;
@@ -26,14 +29,14 @@ const Main = styled.div`
   }
   > .move-right {
     opacity: 0.5;
-    transform: translate(10rem, 0);
+    transform: translate(5rem, 0);
     height: 80%;
     width: 80%;
     transition-duration: 0.2s;
   }
   > .move-left {
     opacity: 0.5;
-    transform: translate(-10rem, 0);
+    transform: translate(-5rem, 0);
     height: 80%;
     width: 80%;
     transition-duration: 0.2s;
@@ -45,7 +48,7 @@ const LeftBack = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  left: 15rem;
+  left: 20rem;
 
   > img {
     opacity: 0.5;
@@ -57,13 +60,13 @@ const LeftBack = styled.div`
   > .move-right {
     opacity: 1;
     z-index: 20;
-    transform: translate(10rem, 0);
+    transform: translate(5rem, 0);
     height: 100%;
     width: 100%;
     transition-duration: 0.2s;
   }
   > .move-left {
-    transform: translate(20rem, 0);
+    transform: translate(10rem, 0);
     height: 80%;
     width: 80%;
     transition-duration: 0.2s;
@@ -75,7 +78,7 @@ const RightBack = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  right: 15rem;
+  right: 20rem;
 
   > img {
     opacity: 0.5;
@@ -87,13 +90,13 @@ const RightBack = styled.div`
   > .move-left {
     opacity: 1;
     z-index: 20;
-    transform: translate(-10rem, 0);
+    transform: translate(-5rem, 0);
     height: 100%;
     width: 100%;
     transition-duration: 0.2s;
   }
   > .move-right {
-    transform: translate(-20rem, 0);
+    transform: translate(-10rem, 0);
     height: 80%;
     width: 80%;
     transition-duration: 0.2s;
@@ -146,6 +149,15 @@ const Carousel = () => {
             className={[(show[0] && "move-left") || (show[1] && "move-right")]}
           />
         </RightBack>
+        <div>
+          <h2>포트폴리오 사이트</h2>
+          <p>기술 스택: react</p>
+          <p>기여도: 100%</p>
+          <p>
+            원형 리스트를 만들어 carousel 기능을 직접 구현하였다. 또한 jest를
+            통한 테스트를 고민중에 있으며...{" "}
+          </p>
+        </div>
       </Gallery>
     </div>
   );

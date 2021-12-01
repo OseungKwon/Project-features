@@ -7,7 +7,7 @@ const App = () => {
   return (
     <div>
       <Top />
-      <Projects />
+      <Carousel />
       <Carousel />
     </div>
   );
