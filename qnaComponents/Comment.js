@@ -1,130 +1,132 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import uuid from "react-uuid";
-
-import { addComment, editComment, removeComment } from "../redux/comment";
-import ReplyComment from "./ReplyComment";
-
-// dot icon
-//import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { Stack, Button, Divider } from "@mui/material";
-
-import { Box } from "@mui/system";
-
-// markdown, toast editor
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor, Viewer } from "@toast-ui/react-editor";
 
 import {
-  check_kor,
-  timeForToday,
-  Item,
-  ProfileIcon
-} from "../component/CommentTool";
+  addComment,
+  editComment,
+  removeComment
+} from "../../redux/slices/commentSample";
+//import ReplyComment from "./ReplyComment";
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+import ReplyComment from "./ReplyComment";
+// dot icon
+//import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import { Stack, Button, Divider, Box, Avatar } from "@material-ui/core";
+import dynamic from "next/dynamic";
+// markdown, toast editor
+const Viewer = dynamic(() => import("../editor/ToastViewer"), { ssr: false });
+const Editor = dynamic(() => import("../editor/TuiEditor"), { ssr: false });
+const ViewerWithForwardedRef = forwardRef((props, ref) => (
+  <Viewer {...props} forwardedRef={ref} />
+));
+const EditorWithForwardedRef = forwardRef((props, ref) => (
+  <Editor {...props} forwardedRef={ref} />
+));
+import { check_kor, timeForToday } from "./CommentTool";
+const Item = styled(Box)(({ theme }) => ({
+  ...theme.typography.body2,
+  paddingTop: theme.spacing(1),
+  paddingBottom: theme.spacing(1),
+  textAlign: "center",
+  color: "#737373",
+  fontSize: "1rem",
+  lineHeight: "1rem"
+}));
 
-const Comment = ({ user }) => {
+const ProfileIcon = styled(Avatar)(() => ({
+  backgroundColor: "orangered",
+  width: "2rem",
+  height: "2rem"
+}));
+const Comment = () => {
+  const user = "a";
   const [local, setLocal] = useState([]);
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.comment);
+  const comments = useSelector(state => state.commentSample);
   const [display, setDisplay] = useState(false);
   const editorRef = useRef();
+  const commentRef = useRef();
   const viewerRef = useRef();
   const date = new Date(); // 작성 시간
 
   // open editor to edit comment
   const [openEditor, setOpenEditor] = useState("");
 
-  const onSubmit = (e) => {
+  const onSubmit = e => {
+    console.log("submit");
     e.preventDefault();
 
     // 마크다운 변환
     const editorInstance = editorRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
-
     setDisplay(!display);
 
     // 데이터 저장
     // setCommentValule(text);
     const data = {
       content: getContent,
-      writer: user,
+      writer: "a",
       postId: "123123",
       responseTo: "root",
-      commentId: uuid(),
+      commentId: Math.random(),
       created_at: `${date}`
     };
     dispatch(addComment(data));
   };
 
   // Edit comment
-  const onEdit = (commentId) => {
+  const onEdit = commentId => {
     // console.log(commentId);
-    const editorInstance = editorRef.current.getInstance();
+    const editorInstance = commentRef.current.getInstance();
     const getContent = editorInstance.getMarkdown();
-    console.log(getContent);
     viewerRef.current.getInstance().setMarkdown(getContent);
+
     let data = { commentId: commentId, content: getContent };
     dispatch(editComment(data));
   };
 
   // Remove comment
-  const onRemove = (commentId) => {
+  const onRemove = commentId => {
     dispatch(removeComment(commentId));
   };
 
   useEffect(() => {
     localStorage.setItem("reply", JSON.stringify(comments));
-    setLocal(comments.filter((comment) => comment.responseTo === "root"));
+    setLocal(comments.filter(comment => comment.responseTo === "root"));
   }, [comments]);
 
   return (
     <Box>
-      <Button
-        onClick={() => {
-          setDisplay(!display);
-        }}
-        sx={{ width: "5rem" }}
-      >
-        답변 달기
-      </Button>
-
-      {display && (
-        <>
-          <Editor ref={editorRef} />
-          <div>
-            <Button onClick={onSubmit}>저장</Button>
-          </div>
-        </>
-      )}
-
+      <h2>댓글 작성하기</h2>
+      <EditorWithForwardedRef ref={editorRef} />
+      <Button onClick={onSubmit}>제출</Button>
       {local.map((comment, index) => (
         <Box sx={{ m: 2 }} key={comment.commentId}>
-          {/* writer 정보, 작성 시간 */}
           <Stack direction="row" spacing={2}>
-            <ProfileIcon>
-              {check_kor.test(comment.writer)
-                ? comment.writer.slice(0, 1)
-                : comment.writer.slice(0, 2)}
-            </ProfileIcon>
+            <ProfileIcon>{comment.writer.slice(0, 1)}</ProfileIcon>
             <Item>{comment.writer}</Item>
 
             <Item>{timeForToday(comment.created_at)}</Item>
           </Stack>
-
-          {/* comment 글 내용 */}
           <Box
             key={index}
             sx={{ padding: "0px 20px", color: comment.exist || "grey" }}
             // exist는 초기값으로 true를 가지며, removeComment를 통해 false로 변경된다.
           >
-            <Viewer ref={viewerRef} />
+            <ViewerWithForwardedRef
+              initialValue={comment.content}
+              ref={viewerRef}
+            />
           </Box>
 
           {/* comment 수정 */}
           {comment.exist && user === comment.writer && (
             <>
               {openEditor === comment.commentId && (
-                <Editor initialValue={comment.content} ref={editorRef} />
+                <EditorWithForwardedRef
+                  initialValue={comment.content}
+                  ref={commentRef}
+                />
               )}
               <Button
                 onClick={() => {
@@ -149,10 +151,8 @@ const Comment = ({ user }) => {
               </Button>
             </>
           )}
-
           {/* 대댓글 컴포넌트 */}
-          <ReplyComment responseTo={comment.commentId} user={user} />
-
+          <ReplyComment responseTo={comment.commentId} />
           <Divider variant="middle" />
         </Box>
       ))}

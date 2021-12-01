@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "@tensorflow-models/handpose": "^0.0.7",
+    "@tensorflow/tfjs-backend-webgl": "^3.9.0",
+    "@tensorflow/tfjs-converter": "^3.9.0",
+    "@tensorflow/tfjs-core": "^3.9.0"
+  }
+}
