@@ -1,22 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { CircularLinkedList } from "./CircleLinkedList";
 import img1 from "../Img/img1.jpg";
 import img2 from "../Img/img2.jpg";
 import img3 from "../Img/img3.jpg";
+import { list } from "./CircleLinkedList";
 
-const Button = styled.button`
-  all: unset;
-  border: 1px solid coral;
-  padding: 0.5em 2em;
-  color: coral;
-  border-radius: 10px;
-  &:hover {
-    transition: all 0.3s ease-in-out;
-    background-color: coral;
-    color: #fff;
-  }
-`;
 const Gallery = styled.div`
   display: flex;
   align-items: center;
@@ -24,63 +12,141 @@ const Gallery = styled.div`
   > div {
     width: 25rem;
     height: 15rem;
-    overflow: hidden;
   }
 `;
 const Main = styled.div`
-  z-index: 10;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   > img {
     height: 100%;
     object-fit: cover;
+    overflow: hidden;
+  }
+  > .move-right {
+    opacity: 0.5;
+    transform: translate(10rem, 0);
+    height: 80%;
+    width: 80%;
+    transition-duration: 0.2s;
+  }
+  > .move-left {
+    opacity: 0.5;
+    transform: translate(-10rem, 0);
+    height: 80%;
+    width: 80%;
+    transition-duration: 0.2s;
   }
 `;
 const LeftBack = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   left: 15rem;
+
   > img {
+    opacity: 0.5;
     height: 80%;
+    width: 80%;
     object-fit: cover;
+    overflow: hidden;
+  }
+  > .move-right {
+    opacity: 1;
+    z-index: 20;
+    transform: translate(10rem, 0);
+    height: 100%;
+    width: 100%;
+    transition-duration: 0.2s;
+  }
+  > .move-left {
+    transform: translate(20rem, 0);
+    height: 80%;
+    width: 80%;
+    transition-duration: 0.2s;
   }
 `;
 const RightBack = styled.div`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   right: 15rem;
+
   > img {
+    opacity: 0.5;
     height: 80%;
+    width: 80%;
     object-fit: cover;
+    overflow: hidden;
+  }
+  > .move-left {
+    opacity: 1;
+    z-index: 20;
+    transform: translate(-10rem, 0);
+    height: 100%;
+    width: 100%;
+    transition-duration: 0.2s;
+  }
+  > .move-right {
+    transform: translate(-20rem, 0);
+    height: 80%;
+    width: 80%;
+    transition-duration: 0.2s;
   }
 `;
 
 const Carousel = () => {
-  const [main, setMain] = useState(2);
-  const library = [img1, img2, img3];
-  const leftButton = () => {
-    main > 0 && setMain(main - 1);
+  list.insert(img1);
+  list.insert(img2);
+  list.insert(img3);
+
+  const [main, setMain] = useState(list.tail);
+  const [show, setShow] = useState([false, false]);
+
+  const rightButton = async () => {
+    await setShow([false, true]);
+    await setTimeout(() => {
+      setMain(main.prev);
+      setShow([false, false]);
+    }, 200);
   };
-  const rightButton = () => {
-    main < library.length - 1 && setMain(main + 1);
+  const leftButton = async () => {
+    await setShow([true, false]);
+    await setTimeout(() => {
+      setMain(main.next);
+      setShow([false, false]);
+    }, 200);
   };
   return (
     <div>
       <Gallery>
-        <LeftBack>
-          <img src={library[main - 1]} alt="이미지" style={{ opacity: 0.5 }} />
+        <LeftBack onClick={leftButton}>
+          <img
+            src={main.prev.data}
+            alt="이미지"
+            className={[(show[0] && "move-left") || (show[1] && "move-right")]}
+          />
         </LeftBack>
         <Main>
-          <img src={library[main]} alt="이미지" />
+          <img
+            src={main.data}
+            alt="이미지"
+            className={[(show[0] && "move-left") || (show[1] && "move-right")]}
+          />
         </Main>
-        <RightBack>
-          <img src={library[main - 1]} alt="이미지" style={{ opacity: 0.5 }} />
+        <RightBack onClick={rightButton}>
+          <img
+            src={main.next.data}
+            alt="이미지"
+            className={[(show[0] && "move-left") || (show[1] && "move-right")]}
+          />
         </RightBack>
       </Gallery>
-      <Button onClick={leftButton}>left</Button>
-      <Button onClick={rightButton}>right</Button>
     </div>
   );
 };
