@@ -1,4 +1,5 @@
 import React from "react";
+import Car from "./Component/Car";
 import Carousel from "./Component/Carousel";
 import Projects from "./Component/Projects";
 import Top from "./Component/Top";
@@ -9,6 +10,7 @@ const App = () => {
       <Top />
       <Carousel />
       <Carousel />
+      <Car />
     </div>
   );
 };

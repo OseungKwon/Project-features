@@ -3,13 +3,19 @@ import styled from "styled-components";
 import img1 from "../Img/img1.jpg";
 import img2 from "../Img/img2.jpg";
 import img3 from "../Img/img3.jpg";
+
+import p1_1 from "../Img/p1_1.png";
+import p1_2 from "../Img/p1_2.png";
+import p1_3 from "../Img/p1_3.png";
+import p1_4 from "../Img/p1_4.png";
+
 import { list } from "./CircleLinkedList";
 
 const Gallery = styled.div`
+  display: flex;
   position: relative;
   right: 10rem;
-  height: 40rem;
-  width: 100rem;
+  margin-bottom: 10rem;
   display: flex;
   > div {
     width: 25rem;
@@ -104,9 +110,10 @@ const RightBack = styled.div`
 `;
 
 const Carousel = () => {
-  list.insert(img1);
-  list.insert(img2);
-  list.insert(img3);
+  list.insert(p1_4);
+  list.insert(p1_3);
+  list.insert(p1_2);
+  list.insert(p1_1);
 
   const [main, setMain] = useState(list.tail);
   const [show, setShow] = useState([false, false]);
@@ -126,40 +133,38 @@ const Carousel = () => {
     }, 200);
   };
   return (
-    <div>
-      <Gallery>
-        <LeftBack onClick={leftButton}>
-          <img
-            src={main.prev.data}
-            alt="이미지"
-            className={[(show[0] && "move-left") || (show[1] && "move-right")]}
-          />
-        </LeftBack>
-        <Main>
-          <img
-            src={main.data}
-            alt="이미지"
-            className={[(show[0] && "move-left") || (show[1] && "move-right")]}
-          />
-        </Main>
-        <RightBack onClick={rightButton}>
-          <img
-            src={main.next.data}
-            alt="이미지"
-            className={[(show[0] && "move-left") || (show[1] && "move-right")]}
-          />
-        </RightBack>
-        <div>
-          <h2>포트폴리오 사이트</h2>
-          <p>기술 스택: react</p>
-          <p>기여도: 100%</p>
-          <p>
-            원형 리스트를 만들어 carousel 기능을 직접 구현하였다. 또한 jest를
-            통한 테스트를 고민중에 있으며...{" "}
-          </p>
-        </div>
-      </Gallery>
-    </div>
+    <Gallery>
+      <LeftBack onClick={leftButton}>
+        <img
+          src={main.prev.data}
+          alt="이미지"
+          className={[(show[0] && "move-left") || (show[1] && "move-right")]}
+        />
+      </LeftBack>
+      <Main>
+        <img
+          src={main.data}
+          alt="이미지"
+          className={[(show[0] && "move-left") || (show[1] && "move-right")]}
+        />
+      </Main>
+      <RightBack onClick={rightButton}>
+        <img
+          src={main.next.data}
+          alt="이미지"
+          className={[(show[0] && "move-left") || (show[1] && "move-right")]}
+        />
+      </RightBack>
+      <div>
+        <h2>포트폴리오 사이트</h2>
+        <p>기술 스택: react</p>
+        <p>기여도: 100%</p>
+        <p>
+          원형 리스트를 만들어 carousel 기능을 직접 구현하였다. 또한 jest를 통한
+          테스트를 고민중에 있으며...{" "}
+        </p>
+      </div>
+    </Gallery>
   );
 };
 
