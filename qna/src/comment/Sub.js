@@ -9,9 +9,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { toggleLike } from "../redux/qna";
 import { useSelector, useDispatch } from "react-redux";
 
-
-const Sub = ({user}) => {
-  const dispatch = useDispatch()
+const Sub = ({ user }) => {
+  const dispatch = useDispatch();
   const [like, setLike] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -27,16 +26,14 @@ const Sub = ({user}) => {
   const [copyed, setCopyed] = useState(false);
 
   const onClickLike = () => {
-    setLike(!like)
-    dispatch(toggleLike(user))
-  }
+    setLike(!like);
+    dispatch(toggleLike(user));
+  };
 
   return (
     <Stack>
       <Paper sx={{ p: 3, mr: 3, mb: 1.5, height: "1.2rem", width: "1.2rem" }}>
-        <Stack
-          onClick={ onClickLike}
-        >
+        <Stack onClick={onClickLike}>
           {like ? (
             <FavoriteIcon
               style={{
