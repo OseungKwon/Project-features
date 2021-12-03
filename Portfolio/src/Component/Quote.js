@@ -20,22 +20,21 @@ const QuoteStyle = styled.div`
     @include nth-ani-delay(180, 0.05s);
   }
 `;
-const Quote = () => {
+const Quote = ({ quote, yAxis }) => {
   const [text, setText] = useState("");
-  const dataText = "Vinyl swag.";
 
   const [scrollY, setScrollY] = useState(0);
   const [loading, setLoading] = useState(true);
   const [doIt, setDoIt] = useState(true);
 
-  if (scrollY > 120 && doIt) {
+  if (scrollY > yAxis && doIt) {
     setDoIt(false);
     setLoading(false);
-    for (let i = 1; i < dataText.length + 1; i++) {
+    for (let i = 1; i < quote.length + 1; i++) {
       (function (x) {
         setTimeout(function () {
           console.log(x);
-          setText(dataText.substring(0, x));
+          setText(quote.substring(0, x));
         }, 200 * x);
       })(i);
     }
@@ -75,7 +74,7 @@ const Quote = () => {
         id="cursor"
         style={{
           borderLeft: "0.1em solid white",
-          animation: "blink .7s step(1) intinite",
+          animation: "blink .7s step(1) intinite"
         }}
       ></Span>
     </QuoteStyle>

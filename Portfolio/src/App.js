@@ -9,8 +9,8 @@ const App = () => {
   return (
     <div style={{ backgroundColor: "black" }}>
       <Top />
-      <Carousel />
-      <Carousel />
+      {/* <Carousel />
+      <Carousel /> */}
       <Car />
     </div>
   );
