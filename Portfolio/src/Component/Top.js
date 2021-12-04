@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Quote from "./Quote";
+import useScrollFadeIn from "./useScrollFadeIn";
+
 import { useScroll } from "../Hook/hooks";
 import { AiOutlineUp } from "react-icons/ai";
+
 const MainStyle = styled.div`
   display: block;
   padding: 10rem;
@@ -41,14 +44,15 @@ const Content = styled.div`
 `;
 
 const Intro = styled.div`
-  width: 100%;
+  width: 100vw;
+  color: white;
   position: fixed;
   background-color: black;
   top: 0rem;
   padding-top: 2rem;
+  padding-left: 10rem;
 `;
 
-const HideQuote = styled.div``;
 const Icon = styled.div`
   display: flex;
   width: 100%;
@@ -57,31 +61,38 @@ const Icon = styled.div`
 `;
 const Top = () => {
   const { scrollY } = useScroll();
-  const [show, setShow] = useState([1, 1]);
+  const start = 900;
+  const end = 2500;
+  const [show, setShow] = useState([1, 0]);
   const [doIt, setDoIt] = useState([1, 1, 1]);
-  if (scrollY < 1200 && doIt[1]) {
+  console.log(start, scrollY, end);
+  if (scrollY < start && doIt[0]) {
+    setDoIt([0, 1, 1]);
+    setShow([0, 0]);
+  }
+
+  if (scrollY < end && scrollY > start && doIt[1]) {
     setDoIt([1, 0, 1]);
     setShow([0, 1]);
   }
-  if (scrollY > 1200 && doIt[2]) {
+  if (scrollY > end && doIt[2]) {
     setDoIt([1, 1, 0]);
     setShow([0, 0]);
   }
   return (
     <div>
+      <Intro style={{ display: `${show[1] ? "block" : "none"}` }}>
+        <h1>
+          저는
+          <QuoteWrapper>
+            <div>[</div>
+            <div>]</div>
+          </QuoteWrapper>
+          개발자입니다
+          <Quote start={start} end={end} />
+        </h1>
+      </Intro>
       <MainStyle>
-        <Intro style={{ display: `${show[1] ? "block" : "none"}` }}>
-          <h1>
-            저는
-            <QuoteWrapper>
-              <div>[</div>
-              <div>]</div>
-            </QuoteWrapper>
-            개발자입니다
-            <Quote yAxis={120} />
-          </h1>
-        </Intro>
-
         <Content>
           <Icon>
             <AiOutlineUp
