@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import Quote from "./Quote";
-import useScrollFadeIn from "./useScrollFadeIn";
 
 import { useScroll } from "../Hook/hooks";
 import { AiOutlineUp } from "react-icons/ai";
@@ -39,7 +38,7 @@ const Content = styled.div`
   h3 {
     color: #bfbfbf;
   }
-  padding-top: 43rem;
+  padding-top: 47rem;
   line-height: 2rem;
 `;
 
@@ -82,7 +81,7 @@ const Top = () => {
   return (
     <div>
       <Intro style={{ display: `${show[1] ? "block" : "none"}` }}>
-        <h1>
+        <div style={{ fontSize: "2rem", fontWeight: "bold" }}>
           저는
           <QuoteWrapper>
             <div>[</div>
@@ -90,7 +89,7 @@ const Top = () => {
           </QuoteWrapper>
           개발자입니다
           <Quote start={start} end={end} />
-        </h1>
+        </div>
       </Intro>
       <MainStyle>
         <Content>
