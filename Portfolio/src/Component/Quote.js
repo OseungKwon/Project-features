@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
-
+import { throttle } from "lodash";
+import { useScroll } from "../Hook/hooks";
 const blink = keyframes`
     50% {
         border-color: transparent;
@@ -20,53 +21,45 @@ const QuoteStyle = styled.div`
     @include nth-ani-delay(180, 0.05s);
   }
 `;
-const Quote = ({ quote, yAxis }) => {
+const Quote = ({ yAxis }) => {
+  const quote = ["나누는 것을 좋아하는", "배움에 주저함이 없는"];
   const [text, setText] = useState("");
+  const { scrollY } = useScroll();
 
-  const [scrollY, setScrollY] = useState(0);
-  const [loading, setLoading] = useState(true);
-  const [doIt, setDoIt] = useState(true);
+  const [doIt, setDoIt] = useState([1, 1, 1, 1]);
 
-  if (scrollY > yAxis && doIt) {
-    setDoIt(false);
-    setLoading(false);
-    for (let i = 1; i < quote.length + 1; i++) {
+  if (scrollY > yAxis && scrollY < 300 && doIt[0]) {
+    setDoIt([0, 1, 1]);
+    for (let i = 1; i < quote[0].length + 1; i++) {
+      if (scrollY > 300) {
+        break;
+      }
       (function (x) {
         setTimeout(function () {
           console.log(x);
-          setText(quote.substring(0, x));
+          setText(quote[0].substring(0, x));
         }, 200 * x);
       })(i);
     }
   }
-  useEffect(() => {
-    let mounted = true;
-    window.addEventListener("scroll", () => {
-      if (mounted) {
-        console.log("이벤트 시작", scrollY);
-        setScrollY(window.pageYOffset);
-        setLoading(false);
+  if (scrollY > 300 && scrollY < 800 && doIt[1]) {
+    setDoIt([1, 0, 1]);
+    setText("");
+  }
+  if (scrollY > 800 && scrollY < 1000 && doIt[2]) {
+    setDoIt([1, 1, 0]);
+    for (let i = 1; i < quote[1].length + 1; i++) {
+      if (scrollY > 1000) {
+        break;
       }
-    });
-    return () => {
-      console.log("이벤트 종료");
-      mounted = false;
-      // window.removeEventListener('scroll', debounce(listener, delay));
-    };
-  }, []);
-
-  //   useEffect(() => {
-  //     loopNum &&
-  //       setTimeout(() => {
-  //         if (count === fullText.length) {
-  //           setIndex(index);
-  //         }
-  //         setCount(count + 1);
-  //         setText(dataText.substring(0, count + 1));
-  //       }, 200);
-
-  //     return () => clearTimeout(text);
-  //   }, [count, fullText, index, text]);
+      (function (x) {
+        setTimeout(function () {
+          console.log(x);
+          setText(quote[1].substring(0, x));
+        }, 200 * x);
+      })(i);
+    }
+  }
   return (
     <QuoteStyle>
       <span>{text}</span>
